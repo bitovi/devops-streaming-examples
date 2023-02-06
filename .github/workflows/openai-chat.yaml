@@ -1,4 +1,3 @@
-openai-workflow-testing
 name: OpenAI-Chat
 on:
   issue_comment:
