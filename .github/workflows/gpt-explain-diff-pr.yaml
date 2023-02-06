@@ -2,7 +2,7 @@ name: GPT Explain PR
 
 on:
   pull_request:
-    types: [opened, synchronize]
+    branches: [ main ]
 
 env:
   DIFF: ${{ compare(github.base_ref, github.head_ref) }}
