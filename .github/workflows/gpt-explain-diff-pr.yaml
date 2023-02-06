@@ -1,8 +1,8 @@
 name: GPT Explain PR
 
-on:
-  pull_request:
-    branches: [ main ]
+# on:
+#   pull_request:
+#     branches: [ main ]
 
 jobs:
   explain-diff:
@@ -21,6 +21,9 @@ jobs:
         echo "DIFF=$(echo $diff)" >> $GITHUB_ENV
     - name: Explain Diff
       id: explain
+
+      # This seems to yield an error
+      # example: https://github.com/bitovi/devops-streaming-examples/actions/runs/4106112253/jobs/7083915950#step:4:12
       uses: thecloudlore/explain-diff@v0.2
       with:
         diff: ${{ env.DIFF }}
