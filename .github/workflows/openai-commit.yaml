@@ -1,0 +1,18 @@
+name: OpenAI Action
+on:
+  push:
+    branches:
+      - "openai-workflow-testing"
+jobs:
+  deploy:
+    name: OpenAI
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: OpenAI
+        uses: riccardolinares/openai-commit@v0.0.1
+        with:
+          openai-api-key: ${{ secrets.OPENAI_API_KEY }}
+          openai-prompt: "Write a description for this git commit: \n${{ github.event.head_commit.message }}"
+        id: openai
