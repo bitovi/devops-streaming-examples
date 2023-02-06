@@ -1,0 +1,36 @@
+name: GPT Explain PR
+
+on:
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  explain-diff:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        ref: ${{ github.event.pull_request.head.sha }}
+        fetch-depth: 2
+    - id: diff
+      run: |
+        git fetch origin main
+        diff=$(git diff origin/main)
+        echo $diff
+        echo "DIFF=$(echo $diff)" >> $GITHUB_ENV
+        echo "diff='${DIFF}'" >> $GITHUB_OUTPUT
+    - name: OpenAI
+      uses: riccardolinares/openai-commit@v0.0.1
+      with:
+        openai-api-key: ${{ secrets.OPENAI_API_KEY }}
+        openai-prompt: "Explain the changes in this commit: \n${{ steps.diff.outputs.diff }}"
+      id: openai
+    
+    - name: Post Comment
+      if: steps.openai.outputs.text
+      uses: thollander/actions-comment-pull-request@v2
+      with:
+        message: |
+          OpenAI explanation of changes:
+          ${{ steps.openai.outputs.text }}
