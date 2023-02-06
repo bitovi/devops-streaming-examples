@@ -9,12 +9,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - id: diff
-        run: |
-          git fetch origin main
-          diff=$(git diff origin/main)
-          echo $diff
-          echo "DIFF=$(echo $diff)" >> $GITHUB_ENV
+    - id: diff
+      run: |
+        git fetch origin main
+        diff=$(git diff origin/main)
+        echo $diff
+        echo "DIFF=$(echo $diff)" >> $GITHUB_ENV
     - name: Explain Diff
       id: explain
       uses: thecloudlore/explain-diff@v0.2
