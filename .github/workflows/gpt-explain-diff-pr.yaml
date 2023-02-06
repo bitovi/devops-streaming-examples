@@ -20,15 +20,16 @@ jobs:
         apikey: ${{ secrets.OPENAI_API_KEY }}
     
     - name: Post Comment
-      uses: actions/github-script@0.9.1
+      if: steps.explain.outputs.explanation
+      uses: actions/github-script@v6
+      with:
+        script: |
+          const octokit = require('@octokit/rest')({ auth: process.env.GITHUB_TOKEN });
+          octokit.pulls.createComment({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            pull_number: context.payload.pull_request.number,
+            body: steps.explain.outputs.explanation
+          });
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      if: steps.explain.outputs.explanation
-      run: |
-        const octokit = require('@octokit/rest')({ auth: process.env.GITHUB_TOKEN });
-        octokit.pulls.createComment({
-          owner: context.repo.owner,
-          repo: context.repo.repo,
-          pull_number: context.payload.pull_request.number,
-          body: steps.explain.outputs.explanation
-        });
