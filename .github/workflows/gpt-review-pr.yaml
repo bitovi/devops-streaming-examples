@@ -3,9 +3,9 @@ name: GPT Review PR
 on: [pull_request]
 
 jobs:
-  hello_world_job:
+  gpt-review-pr:
     runs-on: ubuntu-latest
-    name: Test if the action works
+    name: GPT Review PR
     steps:
       - uses: actions/checkout@v3
         with:
