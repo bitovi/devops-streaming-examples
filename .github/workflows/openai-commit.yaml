@@ -1,4 +1,4 @@
-name: OpenAI Action
+name: OpenAI Commit
 on:
   push:
     branches:
@@ -14,5 +14,12 @@ jobs:
         uses: riccardolinares/openai-commit@v0.0.1
         with:
           openai-api-key: ${{ secrets.OPENAI_API_KEY }}
+          # TODO: what else can we do with this?
           openai-prompt: "Write a description for this git commit: \n${{ github.event.head_commit.message }}"
         id: openai
+    - if: ${{ success() }}
+      name: Open AI Commit message
+      shell: bash
+      run: |
+        echo "## OpenAI's description of the commit" >> $GITHUB_STEP_SUMMARY
+        echo " ${{ steps.openai.outputs.text }}" >> $GITHUB_STEP_SUMMARY
