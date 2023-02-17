@@ -1,0 +1,30 @@
+
+name: Deploy
+
+on:
+  push:
+    branches: [ gcp-test ]
+
+permissions:
+  contents: read
+
+jobs:
+  EC2-Deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: ${{ github.ref_name }}
+      url: ${{ steps.deploy.outputs.vm_url }}
+    steps:
+    - id: deploy
+      name: Deploy
+      uses: bitovi/github-actions-deploy-docker-to-gcp@wip1
+      with:
+        aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID_SANDBOX}}
+        aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY_SANDBOX}}
+        aws_default_region: us-east-1
+        app_port: 3000
+
+
+# run locally with act!
+# brew install act
+# act -W .github/workflows/deploy-gcp.yaml
