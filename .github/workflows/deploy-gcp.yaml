@@ -19,9 +19,8 @@ jobs:
       name: Deploy
       uses: bitovi/github-actions-deploy-docker-to-gcp@wip1
       with:
-        # aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID_SANDBOX}}
-        # aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY_SANDBOX}}
-        # aws_default_region: us-east-1
+        gcp_secret_access_key: ${{ secrets.GCP_SECRET_ACCESS_KEY }}
+        gcp_project_id: ${{ vars.GCP_PROJECT_ID }}
         app_port: 3000
 
 
