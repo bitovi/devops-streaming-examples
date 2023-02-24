@@ -12,3 +12,23 @@ output "instance_id" {
 output "bucket_name" {
   value = google_storage_bucket.default.name
 }
+
+output "vpc" {
+  value = google_compute_network.vpc_network.name
+}
+
+output "machine_type" {
+  value = google_compute_instance.gcp_instance.machine_type
+}
+
+output "zone" {
+  value = google_compute_instance.gcp_instance.zone
+}
+
+output "disk_size" {
+  value = google_compute_instance.gcp_instance.boot_disk[0].initialize_params[0].size
+}
+
+output "project" {
+  value = google_compute_instance.gcp_instance.network_interface[0].subnetwork_project
+}
