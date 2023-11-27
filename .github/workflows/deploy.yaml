@@ -21,3 +21,4 @@ jobs:
         with:
           path: dist/storybook
           build_command: npm run build-storybook
+          checkout: false
