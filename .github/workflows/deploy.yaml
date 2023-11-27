@@ -2,8 +2,7 @@ name: Build and Publish storybook to GitHub Pages
 
 on:
   push:
-    branches:
-      - "storybook-videos"
+    branches: [ storybook-videos ]
 
 permissions:
   contents: read
