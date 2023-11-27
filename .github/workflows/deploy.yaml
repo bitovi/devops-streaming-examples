@@ -3,7 +3,13 @@ name: Build and Publish storybook to GitHub Pages
 on:
   push:
     branches:
-      - storybook-videos
+      - "storybook-videos"
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
 jobs:
   deploy:
     environment:
